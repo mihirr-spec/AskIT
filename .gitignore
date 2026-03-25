@@ -1,0 +1,46 @@
+# ── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# ── Environment variables ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Vector DB / ML ───────────────────────────────────────────────────────────
+chroma_db/
+*.sqlite3
+*.bin
+*.pt
+*.safetensors
+
+# ── Node / Frontend ──────────────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+*.local
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.pdf
+*.log
+.idea/
+.vscode/
+*.swp

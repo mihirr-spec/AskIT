@@ -1,0 +1,2 @@
+start cmd /k "cd /d C:\Users\mihir\OneDrive\Desktop\New folder\projects\vibecoded\Smart Navigator\backend && venv\Scripts\activate && uvicorn main:app --reload --port 8000"
+start cmd /k "cd /d C:\Users\mihir\OneDrive\Desktop\New folder\projects\vibecoded\Smart Navigator\frontend && npm run dev"

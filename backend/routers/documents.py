@@ -95,7 +95,7 @@ async def process_documents(
 
     for doc in pending:
         if doc["type"] == "url" and doc.get("source_url"):
-            background_tasks.add_task(_process_url_doc, doc["id"], doc["name"], doc["source_url"])
+            background_tasks.add_task(_process_url_doc, doc["id"], doc["name"], doc["source_url"], user["org_id"])
         # PDF re-processing not supported here (bytes not stored); mark for manual upload
 
     return {

@@ -156,11 +156,12 @@ class CreateMemberRequest(BaseModel):
 async def add_member(body: CreateMemberRequest, user: dict = Depends(get_current_user)):
     try:
         sb = get_supabase()
+        email = body.email.lower().strip()
 
         existing = (
             sb.table("members")
             .select("id")
-            .eq("email", body.email)
+            .eq("email", email)
             .eq("org_id", user["org_id"])
             .execute()
         )
@@ -170,7 +171,7 @@ async def add_member(body: CreateMemberRequest, user: dict = Depends(get_current
 
         sb.table("members").insert({
             "name": body.name,
-            "email": body.email,
+            "email": email,
             "role": "user",
             "member_type": body.member_type,
             "org_id": user["org_id"],

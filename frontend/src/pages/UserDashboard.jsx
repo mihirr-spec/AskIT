@@ -62,7 +62,7 @@ function getStatusBadgeClass(status) {
 }
 
 export default function UserDashboard() {
-  const { user, signOut, orgName, role } = useAuth()
+  const { user, signOut, orgName, role, orgId } = useAuth()
   const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState('chat')
   const [topTab, setTopTab] = useState('analytics')
@@ -87,6 +87,8 @@ export default function UserDashboard() {
   const [documents, setDocuments] = useState([])
   const [documentsLoading, setDocumentsLoading] = useState(true)
   const [documentsError, setDocumentsError] = useState('')
+
+  const [backendOffline, setBackendOffline] = useState(false)
 
   const userLabel = user?.email || 'User'
   const userInitial = userLabel?.[0]?.toUpperCase() || '?'
@@ -152,12 +154,14 @@ export default function UserDashboard() {
 
   useEffect(() => {
     const fetchDocuments = async () => {
+      if (!orgId) return
       setDocumentsLoading(true)
       setDocumentsError('')
       try {
         const { data, error } = await supabase
           .from('documents')
           .select('*')
+          .eq('org_id', orgId)
           .order('created_at', { ascending: false })
 
         if (error) throw error
@@ -171,7 +175,7 @@ export default function UserDashboard() {
     }
 
     if (user?.id) fetchDocuments()
-  }, [])
+  }, [user?.id, orgId])
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return
@@ -195,7 +199,11 @@ export default function UserDashboard() {
         }
       } : c))
     } catch (e) {
-      const detail = e?.response?.data?.detail || e?.message || 'Unknown error'
+      const isNetworkError = !e?.response && e?.message === 'Network Error'
+      if (isNetworkError) setBackendOffline(true)
+      const detail = isNetworkError
+        ? 'Cannot reach backend server. Please make sure the backend is running on port 8000 (run start.bat).'
+        : (e?.response?.data?.detail || e?.message || 'Unknown error')
       setConversations(prev => prev.map(c => c.id === id ? {
         ...c,
         pending: false,
@@ -334,6 +342,11 @@ export default function UserDashboard() {
 
   const renderChat = () => (
     <div className="ud-chat-view">
+      {backendOffline && (
+        <div style={{ background: '#7f1d1d', color: '#fca5a5', padding: '10px 16px', borderRadius: 8, marginBottom: 12, fontSize: 13 }}>
+          ⚠️ Backend server is offline. Start it by running <strong>start.bat</strong> or <code>uvicorn main:app --reload --port 8000</code> in the backend folder.
+        </div>
+      )}
       <div className="ud-messages">
         {/* Welcome message */}
         <div className="ud-msg-row assistant">

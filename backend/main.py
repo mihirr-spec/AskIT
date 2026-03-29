@@ -14,7 +14,7 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("🚀 Smart Knowledge Navigator starting up...")
+    print("🚀 AskIT starting up...")
     from ingestion.embedder import embed_query
     embed_query("warm up")
     print("✅ Embedding model loaded")
@@ -23,7 +23,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Smart Knowledge Navigator API",
+    title="AskIT API",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -51,7 +51,7 @@ app.include_router(auth.router)
 @app.get("/")
 async def root():
     return {
-        "message": "Smart Knowledge Navigator API",
+        "message": "AskIT API",
         "status": "running"
     }
 

@@ -694,7 +694,7 @@ export default function UserDashboard() {
 
       <div className="ud-sidebar">
         <div className="ud-brand">
-          <div className="ud-brand-logo"><span className="ud-logo-icon">💠</span> Smart Navigator</div>
+          <div className="ud-brand-logo"><span className="ud-logo-icon">💠</span> AskIT</div>
           <div className="ud-brand-sub">INSTITUTIONAL INTELLIGENCE</div>
         </div>
 

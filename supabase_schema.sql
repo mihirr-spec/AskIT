@@ -1,4 +1,4 @@
--- Supabase SQL Schema for Smart Knowledge Navigator
+-- Supabase SQL Schema for AskIT
 -- Run this entire file in the Supabase SQL Editor of your NEW project
 
 -- 1. Organizations Table

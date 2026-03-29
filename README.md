@@ -1,4 +1,4 @@
-# AskIT — Smart Knowledge Navigator
+# AskIT
 
 A full-stack RAG (Retrieval-Augmented Generation) platform that lets organizations upload documents and URLs into a knowledge base, then ask questions about them via an AI-powered chat interface.
 

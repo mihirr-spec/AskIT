@@ -120,7 +120,7 @@ export default function AdminDashboard() {
       <style>{CSS}</style>
       <aside className="ar-sidebar">
         <div className="ar-brand">
-          <h1>Smart Navigator</h1>
+          <h1>AskIT</h1>
           <p>ADMIN PORTAL</p>
         </div>
         <nav className="ar-nav">
@@ -443,7 +443,7 @@ function OrganizationPage() {
             {/* Org name overlay */}
             <div style={{ padding: '0 28px 28px', marginTop: -24 }}>
               <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 42, fontStyle: 'italic', color: '#f1f5f9', lineHeight: 1.1, marginBottom: 6 }}>{org.name}</div>
-              <div style={{ fontSize: 11, color: '#475569', letterSpacing: 1 }}>Knowledge Network · Powered by Smart Navigator</div>
+              <div style={{ fontSize: 11, color: '#475569', letterSpacing: 1 }}>Knowledge Network · Powered by AskIT</div>
             </div>
           </div>
 

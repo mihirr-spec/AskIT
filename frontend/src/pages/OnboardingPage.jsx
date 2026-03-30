@@ -35,21 +35,12 @@ export default function OnboardingPage() {
         .eq('org_id', orgId)
         .maybeSingle();
 
-      if (existing) {
-        // Already exists (admin pre-added them), just mark registered
-        await supabase.from('members').update({ is_registered: true }).eq('id', existing.id);
-      } else {
-        // New member, insert with user role
-        const { error: insertErr } = await supabase.from('members').insert({
-          name: user.user_metadata?.full_name || email.split('@')[0],
-          email,
-          role: 'user',
-          member_type: 'general',
-          org_id: orgId,
-          is_registered: true,
-        });
-        if (insertErr) throw insertErr;
+      if (!existing) {
+        await supabase.auth.signOut();
+        throw new Error('Access denied: your email has not been added to this organization by an admin.');
       }
+
+      await supabase.from('members').update({ is_registered: true }).eq('id', existing.id);
 
       await fetchProfile(email);
       navigate('/chat', { replace: true });

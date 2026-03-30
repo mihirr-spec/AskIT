@@ -53,6 +53,9 @@ export function AuthProvider({ children }) {
     return supabase.auth.signInWithPassword({ email, password })
   }
 
+  const signInWithGoogle = () =>
+    supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } })
+
   const signOut = () => supabase.auth.signOut()
 
   const role = profile?.role || user?.user_metadata?.role || 'user'
@@ -61,7 +64,7 @@ export function AuthProvider({ children }) {
   const name = profile?.name || user?.email?.split('@')[0] || ''
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, role, orgId, orgName, name, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, profile, role, orgId, orgName, name, signUp, signIn, signOut, signInWithGoogle, fetchProfile }}>
       {children}
     </AuthContext.Provider>
   )

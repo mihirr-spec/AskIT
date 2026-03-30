@@ -62,7 +62,25 @@ ALTER TABLE chat_history ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "allow all" ON chat_history FOR ALL USING (true) WITH CHECK (true);
 
 
--- 5. Storage Bucket
+-- 5. Saved Insights Table
+-- Users can bookmark any chat answer for later reference.
+CREATE TABLE saved_insights (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade not null,
+  org_id uuid references organizations(id) on delete cascade not null,
+  query text not null,
+  answer text not null,
+  citations jsonb default '[]',
+  confidence float,
+  note text,
+  created_at timestamptz default now()
+);
+
+ALTER TABLE saved_insights ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "allow all" ON saved_insights FOR ALL USING (true) WITH CHECK (true);
+
+
+-- 6. Storage Bucket
 -- Go to Supabase > Storage > New Bucket > name it "documents" > make it public
 
 -- 6. Vector DB is ChromaDB running locally — NOT Supabase pgvector.
